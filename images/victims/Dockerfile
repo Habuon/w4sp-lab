@@ -1,7 +1,7 @@
 #import from w4sp base
 FROM w4sp/labs:base
 
-RUN pip install scapy pysmbclient
+RUN pip3 install scapy pysmbclient
 RUN apt-get install -y winbind dhcping
 
 #set dhclient.conf to be aggressive with dhcp requests
