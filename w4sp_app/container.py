@@ -224,7 +224,7 @@ class container(root_ns):
         self.id = r('docker run -id --privileged --name $name --hostname $name --net=none $image').strip()
         self.pid = r("docker inspect -f '{{.State.Pid}}' $self.id").strip().strip(b"'")
 
-        self.proc_path = '/proc/%s/ns/' % self.pid
+        self.proc_path = f'/proc/{self.pid.decode() if type(self.pid) == bytes else self.pid}/ns/'
         self.mnt_fd = open(self.proc_path + 'mnt')
         self.var_run = '/var/run/netns/' + self.name     
 
