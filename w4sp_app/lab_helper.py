@@ -258,7 +258,7 @@ def create_netx(net):
                                 ns_root.register_ns(name, d_image)
 
         
-        #setup_sw(sw, subnet, sw_clients)
+        setup_sw(sw, subnet, sw_clients)
         for client in sw_clients:
             c(sw).connect(c(client))
 
