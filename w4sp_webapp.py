@@ -66,7 +66,7 @@ def psef(grep):
 
             #read the command line from /proc/<pid>/cmdline
             with open(os.path.join('/proc', pid, 'cmdline'), 'rb') as cmd:
-                cmd = cmd.read()
+                cmd = cmd.read().decode()
                 if grep in cmd:
                     return pid, cmd
 
@@ -102,7 +102,7 @@ def getnet():
 
     for ns in w4sp.ns_root.ns:
         tmp = {}
-        tmp['id'] = ns.pid
+        tmp['id'] = ns.pid if type(ns.pid) != bytes else ns.pid.decode()
         tmp['label'] = ns.name
 
         if ns.name == 'inet':
@@ -125,8 +125,8 @@ def getnet():
 
     for f,t in get_connections():
         tmp = {}
-        tmp['from'] = f
-        tmp['to'] = t
+        tmp['from'] = f if type(f) != bytes else f.decode()
+        tmp['to'] = t if type(t) != bytes else t.decode()
         data['edges'].append(tmp)
 
     print(data)
